@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rubyapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rubyapp
+  template:
+    metadata:
+      labels:
+        app: rubyapp
+    spec:
+      containers:
+      - name: rubyapp
+        image: oluwasanmivic123/rubywebapp:latest
+        env:
+        - name: DATABASE_URL
+          value: "postgres://victoria:victoria@postgres:5432/budget_app_development"
+        - name: DATABASE_HOST
+          value: localhost
+        ports:
+        - containerPort: 3000
+      initContainers:
+      - name: migration-container
+        image: oluwasanmivic123/rubywebapp:latest
+        command: ["bin/rails", "db:migrate", "RAILS_ENV=development"]
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rubyapp
+spec:
+  selector:
+    app: rubyapp
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
