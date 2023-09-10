@@ -17,8 +17,8 @@ services:
       context: .
       dockerfile: Dockerfile.db
     environment:
-      POSTGRES_USER: victoria
-      POSTGRES_PASSWORD: victoria
+      POSTGRES_USER: ***********
+      POSTGRES_PASSWORD: ***********
       POSTGRES_DB: budget_app_development
     volumes:
       - db-data:/var/lib/postgresql/data
