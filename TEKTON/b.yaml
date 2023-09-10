@@ -19,9 +19,9 @@ spec:
       # Define steps for building and pushing the first image
       env:
         - name: DOCKER_USERNAME
-          value: oluwasanmivic123
+          value: **************
         - name: DOCKER_PASSWORD
-          value: Sanmi&123
+          value: ****************
       workingDir: /workspace/source-repo
 
   volumes:
@@ -51,9 +51,9 @@ spec:
       # Define steps for building and pushing the second image from a different repo
       env:
         - name: DOCKER_USERNAME
-          value: oluwasanmivic123
+          value: **************
         - name: DOCKER_PASSWORD
-          value: Sanmi&123
+          value: ***************
       workingDir: /workspace/source-repo
 
   volumes:

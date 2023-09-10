@@ -8,10 +8,9 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 3000  
+      targetPort: 3000
   type: LoadBalancer
 
-# Prose Comment:
 # This section defines a LoadBalancer service for a Ruby application.
 # The service listens on port 80 and directs traffic to port 3000 where the Ruby application is running.
 # End of YAML Configuration

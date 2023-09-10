@@ -56,21 +56,12 @@ spec:
     targetPort: 3000
 
 # Deployment Explanation:
-# - We define a Kubernetes Deployment for the Ruby application.
-# - We specify one replica and set labels for pod management.
+# - I defined a Kubernetes Deployment for the Ruby application.
+# - I specified one replica and set labels for pod management.
 # - The container runs the Ruby application, connects to the database, and listens on port 3000.
 # - An initContainer performs database migrations during initialization.
 
 # Service Explanation:
-# - We create a Kubernetes Service named 'rubyapp' to expose the Ruby application.
-# - It routes traffic to pods with the label 'app: rubyapp' and exposes port 3000.
+# - I created a Kubernetes Service named 'rubyapp' to expose the Ruby application.
+# - I routed traffic to pods with the label 'app: rubyapp' and exposes port 3000.
 
-# Deployment Explanation:
-# - We define a Kubernetes Deployment for the Ruby application.
-# - We specify one replica and set labels for pod management.
-# - The container runs the Ruby application, connects to the database, and listens on port 3000.
-# - An initContainer performs database migrations during initialization.
-
-# Service Explanation:
-# - We create a Kubernetes Service named 'rubyapp' to expose the Ruby application.
-# - It routes traffic to pods with the label 'app: rubyapp' and exposes port 3000.

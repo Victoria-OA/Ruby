@@ -18,9 +18,9 @@ spec:
         image: oluwasanmivic123/rubydbv:latest
         env:
         - name: POSTGRES_USER
-          value: victoria
+          value: **************
         - name: POSTGRES_PASSWORD
-          value: victoria
+          value: *****************
         - name: POSTGRES_DB
           value: budget_app_development
         ports:
