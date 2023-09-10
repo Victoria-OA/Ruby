@@ -1,0 +1,61 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://victoria:victoria@db:5432/budget_app_development
+    command: ["sh", "-c", "bundle exec rails db:migrate && bundle exec rails server -b 0.0.0.0"]
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    environment:
+      POSTGRES_USER: victoria
+      POSTGRES_PASSWORD: victoria
+      POSTGRES_DB: budget_app_development
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+
+
+# Explanation:
+# 
+# This Docker Compose configuration defines two services: 'web' and 'db', 
+# representing a Ruby on Rails web application and a PostgreSQL database, respectively.
+# 
+# 'web' Service:
+# - The 'build' section specifies how to build the Docker image for the 'web' service, 
+#   using the 'Dockerfile.app' in the current context.
+# - It exposes port 3000 on the host, mapping it to port 3000 in the container, allowing
+#   external access to the Rails application.
+# - 'depends_on' ensures that the 'db' service is started before the 'web' service.
+# - Environment variables are set, including 'DATABASE_URL', which defines the PostgreSQL 
+#   connection URL used by the Rails application.
+# - The 'command' runs a shell command within the container. It first performs database 
+#   migrations with 'bundle exec rails db:migrate' and then starts the Rails server, 
+#   binding it to '0.0.0.0' for external access.
+# 
+# 'db' Service:
+# - Similar to the 'web' service, the 'build' section specifies how to build the Docker 
+#   image for the 'db' service, using 'Dockerfile.db'.
+# - Environment variables like 'POSTGRES_USER', 'POSTGRES_PASSWORD', and 'POSTGRES_DB' 
+#   configure the PostgreSQL server running in this container.
+# - The 'volumes' section creates a named volume 'db-data' to persist PostgreSQL data. This 
+#   ensures that data is retained across container restarts.
+# 
+# Volumes:
+# - The 'volumes' section defines the named volume 'db-data', which is used to persist the 
+#   PostgreSQL data directory.
+# 
+# Overall, this Docker Compose file sets up two containers, one for the Rails application 
+# and one for the PostgreSQL database, and establishes the necessary configurations to 
+# enable them to work together effectively.

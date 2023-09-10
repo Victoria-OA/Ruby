@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  serviceName: postgres
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: oluwasanmivic123/rubydbv:latest
+        env:
+        - name: POSTGRES_USER
+          value: victoria
+        - name: POSTGRES_PASSWORD
+          value: victoria
+        - name: POSTGRES_DB
+          value: budget_app_development
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: postgres-data
+          mountPath: /var/lib/postgresql/data
+  volumeClaimTemplates:
+  - metadata:
+      name: postgres-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: standard  # Use the existing "standard" StorageClass
+      resources:
+        requests:
+          storage: 1Gi
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+
+
+# This YAML configuration defines a StatefulSet and a Service for a PostgreSQL database.
+
+# StatefulSet configuration:
+# - It ensures there is one replica of the PostgreSQL database service.
+# - The service is named "postgres" and has a label "app: postgres."
+# - The container uses the "oluwasanmivic123/rubydbv:latest" image.
+# - Environment variables are set for PostgreSQL user, password, and database name.
+# - Port 5432 is exposed for database communication.
+# - A volume is mounted for persistent data storage.
+
+# Persistent Volume Claim (PVC) template:
+# - Defines storage configuration for PostgreSQL data.
+# - Requests a storage capacity of 1Gi using the "standard" StorageClass.
+
+# Service configuration:
+# - Defines a Service named "postgres" that selects pods labeled with "app: postgres."
+# - Exposes port 5432 for external access to the PostgreSQL service.
