@@ -1,0 +1,10 @@
+# Use an official PostgreSQL base image
+FROM postgres:latest
+
+# Set environment variables for PostgreSQL
+ENV POSTGRES_USER victoria
+ENV POSTGRES_PASSWORD victoria
+ENV POSTGRES_DB budget_app_development
+
+# Expose the default PostgreSQL port
+EXPOSE 5432
