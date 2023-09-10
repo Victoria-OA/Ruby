@@ -1,0 +1,22 @@
+#apiVersion: v1
+#kind: ConfigMap
+#metadata:
+#  name: argocd-cm
+#  namespace: argocd
+#data:
+#  url: https://argocd-server.argocd.svc
+#  repo: https://github.com/Victoria-OA/Ruby.git
+#  username: Victoria-OA
+#  password: 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
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  repositories: |
+    - url: https://github.com/Victoria-OA/Ruby.git
+      username: Victoria-OA
+      password: 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
+

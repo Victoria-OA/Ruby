@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rubyapp
-        image: oluwasanmivic123/rubywebapp:latest
+        image: oluwasanmivic123/kub:latest
         env:
         - name: DATABASE_URL
           value: "postgres://victoria:victoria@postgres:5432/budget_app_development"
@@ -22,10 +22,24 @@ spec:
           value: postgres
         ports:
         - containerPort: 3000
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - |
+              until nc -z -v -w30 postgres 5432
+              do
+                echo "Waiting for PostgreSQL to start..."
+                sleep 5
+              done
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
       initContainers:
       - name: migration-container
-        image: oluwasanmivic123/rubywebapp:latest
+        image: oluwasanmivic123/kub:latest
         command: ["bin/rails", "db:migrate", "RAILS_ENV=development"]
+
 
 
 ---
@@ -40,6 +54,16 @@ spec:
   - protocol: TCP
     port: 3000
     targetPort: 3000
+
+# Deployment Explanation:
+# - We define a Kubernetes Deployment for the Ruby application.
+# - We specify one replica and set labels for pod management.
+# - The container runs the Ruby application, connects to the database, and listens on port 3000.
+# - An initContainer performs database migrations during initialization.
+
+# Service Explanation:
+# - We create a Kubernetes Service named 'rubyapp' to expose the Ruby application.
+# - It routes traffic to pods with the label 'app: rubyapp' and exposes port 3000.
 
 # Deployment Explanation:
 # - We define a Kubernetes Deployment for the Ruby application.

@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myrubyargoapp
+  namespace: argocd
+spec:
+  project: default 
+  source:
+    repoURL: https://github.com/Victoria-OA/Ruby.git
+    targetRevision: HEAD
+    path: KUBERNETES
+  destination: 
+    server: https://kubernetes.default.svc 
+    namespace: myapp
+
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true

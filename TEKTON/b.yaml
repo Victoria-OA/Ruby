@@ -1,0 +1,81 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-and-push-dockerfile1-task
+spec:
+  workspaces:
+    - name: source-workspace
+  steps:
+    - name: clone-repo
+      image: alpine/git
+      script: |
+        git clone https://github.com/Victoria-OA/Ruby.git /workspace/source-repo
+      volumeMounts:
+        - name: source-volume
+          mountPath: /workspace/source-repo
+
+    - name: build
+      image: docker.io/oluwasanmivic123/rubykub
+      # Define steps for building and pushing the first image
+      env:
+        - name: DOCKER_USERNAME
+          value: oluwasanmivic123
+        - name: DOCKER_PASSWORD
+          value: Sanmi&123
+      workingDir: /workspace/source-repo
+
+  volumes:
+    - name: source-volume
+      emptyDir: {}
+
+---
+
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-and-push-dockerfile2-task
+spec:
+  workspaces:
+    - name: source-workspace
+  steps:
+    - name: clone-repo
+      image: alpine/git
+      script: |
+        git clone https://github.com/Victoria-OA/Ruby.git /workspace/source-repo
+      volumeMounts:
+        - name: source-volume
+          mountPath: /workspace/source-repo
+
+    - name: build
+      image: docker.io/oluwasanmivic123/rubydbv
+      # Define steps for building and pushing the second image from a different repo
+      env:
+        - name: DOCKER_USERNAME
+          value: oluwasanmivic123
+        - name: DOCKER_PASSWORD
+          value: Sanmi&123
+      workingDir: /workspace/source-repo
+
+  volumes:
+    - name: source-volume
+      emptyDir: {}
+
+---
+
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-push-pipeline
+spec:
+  resources: []
+  tasks:
+    - name: build-and-push-dockerfile1
+      taskRef:
+        name: build-and-push-dockerfile1-task
+      runAfter: []
+      params: []
+    - name: build-and-push-dockerfile2
+      taskRef:
+        name: build-and-push-dockerfile2-task
+      runAfter: []
+      params: []
