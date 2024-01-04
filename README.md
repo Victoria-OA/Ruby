@@ -65,43 +65,41 @@ This command will start the web and db services, making the Rails application av
 ## KUBERNETES
 #### This section contains the Kubernetes configuration files for deploying and managing a Ruby on Rails application with PostgreSQL using Kubernetes resources. The setup includes defining resources such as StatefulSets, Services, Deployments, and Secrets to orchestrate the deployment and operation of the application.
 
-### PostgreSQL StatefulSet Configuration (db.yaml)
+### PostgreSQL StatefulSet Configuration (postgres.yaml)
 The db.yaml file contains the StatefulSet configuration for PostgreSQL. StatefulSet ensures stable, unique network identifiers, and persistent storage for PostgreSQL.
 
 Apply the configuration:
 ```
-kubectl apply -f db.yaml
+kubectl apply -f postgres.yaml
 ```
-### PostgreSQL Secret Configuration (secret.yaml)
-The secret.yaml file contains the Kubernetes Secret configuration for PostgreSQL credentials.
+### PostgreSQL Secret Configuration (service.yaml)
+The service.yaml file contains the Kubernetes Secret configuration for PostgreSQL credentials.
 
 Apply the configuration:
 ```
-Apply the configuration:
+kubectl apply -f load.yaml
 ```
-kubectl apply -f service.yaml
-```
-### Ruby App Deployment Configuration (web.yaml)
+### Ruby App Deployment Configuration (rails.yaml)
 The web.yaml file contains the Kubernetes Deployment configuration for the Budget-app Ruby application.
 
 Apply the configuration:
 ```
-kubectl apply -f rail.yaml
+kubectl apply -f rails.yaml
 ```
 
 ## TEKTON
 #### This section contains the Tekton configurations for building and deploying applications using Tekton Pipelines.
 
-### Tekton Pipeline Configuration (pipeline.yaml)
+### Tekton Pipeline Configuration (b.yaml)
 The pipeline.yaml file contains the Tekton Pipeline configuration for the Budget-app project.
 
 Apply the configuration:
 ```
-kubectl apply -f tekton.yaml
+kubectl apply -f b.yaml
 ```
 ## ArgoCD
 #### This section contains the ArgoCD configurations for deploying and managing applications using GitOps principles with ArgoCD.
-### ArgoCD Application Configuration (argocd-application.yaml)
+### ArgoCD Application Configuration (argocd.yaml)
 The argocd-application.yaml file contains the ArgoCD Application configuration for the Budget-app project.
 
 Apply the configuration:
