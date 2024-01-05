@@ -1,9 +1,6 @@
 # DEPLOYMENT OF A BUDGET APP//Ruby app
-```
 
-link to the live demo of the project--- https://drive.google.com/drive/folders/1zA85pcTQNx6dms6jq-T9izy1lZ2ThWDd?usp=drive_link
-
-```
+[Demo video Drive-link](https://drive.google.com/drive/folders/1zA85pcTQNx6dms6jq-T9izy1lZ2ThWDd?usp=drive_link)
 
 ### Table of Contents
 - [Overview](#overview)
